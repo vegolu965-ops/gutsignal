@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Gut Signal — Decode What Your Stomach Is Saying</title>
+<meta name="description" content="A 3-minute assessment that decodes your stomach's signals. Based on functional gut health science, not symptom checklists.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg: #faf9f6;
+    --text: #2d2d2b;
+    --sub: #6b6b66;
+    --green: #2d5a4b;
+    --green-light: #e8f0ec;
+    --gold: #c09640;
+    --gold-light: #f8f0d0;
+    --white: #ffffff;
+    --border: #e0ded8;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 48px 0 32px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    color: #1a1a18;
+  }
+  .hero h1 span { color: var(--green); }
+  .hero p {
+    font-size: 17px;
+    color: var(--sub);
+    max-width: 440px;
+    margin: 0 auto 28px;
+    line-height: 1.55;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.2px;
+  }
+  .hero-cta:hover { background: #234d3f; transform: translateY(-1px); }
+  .hero-note { font-size: 13px; color: #999; margin-top: 12px; }
+
+  /* ── Trust bar ── */
+  .trust-bar {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .trust-item { text-align: center; }
+  .trust-item .num { font-size: 22px; font-weight: 700; color: var(--green); }
+  .trust-item .label { font-size: 12px; color: var(--sub); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* ── How it works ── */
+  .how-section { padding: 40px 0; }
+  .how-section h2 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    letter-spacing: -0.3px;
+  }
+  .steps { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .step {
+    flex: 1; min-width: 140px; max-width: 180px;
+    text-align: center;
+  }
+  .step-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--gold-light);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 20px;
+  }
+  .step h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .step p { font-size: 13px; color: var(--sub); line-height: 1.45; }
+
+  /* ── Assessment (hidden initially) ── */
+  #assessment { display: none; padding: 20px 0 60px; }
+  .progress-bar {
+    height: 4px; background: var(--border); border-radius: 2px;
+    margin-bottom: 32px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--green);
+    border-radius: 2px; transition: width 0.3s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 12px; color: var(--sub); text-align: right;
+    margin-bottom: 6px;
+  }
+
+  .question-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .q-counter { font-size: 12px; color: var(--sub); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+  .question-card h3 {
+    font-size: 20px; font-weight: 650; margin-bottom: 24px;
+    line-height: 1.4; letter-spacing: -0.2px;
+  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    display: block; width: 100%; text-align: left;
+    padding: 14px 18px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text);
+    font-family: inherit;
+    line-height: 1.4;
+  }
+  .option:hover { border-color: var(--green); background: var(--green-light); }
+  .option.selected { border-color: var(--green); background: var(--green); color: white; font-weight: 600; }
+
+  /* ── Results ── */
+  #results { display: none; padding: 20px 0 60px; }
+  .result-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .result-header { text-align: center; margin-bottom: 28px; }
+  .result-badge {
+    display: inline-block;
+    background: var(--gold-light);
+    color: var(--gold);
+    font-size: 13px; font-weight: 600;
+    padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .result-header h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+  .result-header .subtitle { font-size: 14px; color: var(--sub); }
+
+  .result-section { margin-bottom: 24px; }
+  .result-section h4 {
+    font-size: 15px; font-weight: 650; color: var(--green);
+    margin-bottom: 8px; letter-spacing: -0.2px;
+  }
+  .result-section p { font-size: 15px; line-height: 1.65; color: var(--text); }
+
+  .action-list { list-style: none; }
+  .action-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    display: flex; gap: 10px; align-items: flex-start;
+    line-height: 1.55;
+  }
+  .action-list li:last-child { border-bottom: none; }
+  .action-num {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--green-light);
+    color: var(--green);
+    font-weight: 700; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .offer-box {
+    background: linear-gradient(135deg, #f8f0d0 0%, #faf9f6 100%);
+    border: 1.5px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 28px;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .offer-box h4 { font-size: 18px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; }
+  .offer-box p { font-size: 14px; color: var(--sub); margin-bottom: 16px; line-height: 1.55; }
+  .offer-price { font-size: 28px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+  .offer-price span { font-size: 14px; font-weight: 400; color: var(--sub); }
+  .offer-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: white;
+    font-size: 16px; font-weight: 600;
+    padding: 14px 36px; border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+    letter-spacing: 0.2px;
+  }
+  .offer-btn:hover { background: #a57e30; }
+  .offer-guarantee { font-size: 12px; color: #999; margin-top: 12px; }
+
+  .disclaimer {
+    font-size: 12px; color: #aaa;
+    text-align: center; padding: 24px 0 40px;
+    line-height: 1.6;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center; padding: 32px 0;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: #bbb;
+  }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 26px; }
+    .question-card { padding: 24px 18px; }
+    .question-card h3 { font-size: 18px; }
+    .option { font-size: 14px; padding: 12px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">Free Gut Health Assessment</div>
+    <h1>Your stomach has been <span>talking</span>.<br>Let's decode the signals.</h1>
+    <p>12 questions. 3 minutes. Discover what your digestive symptoms are actually telling you — not just what's happening, but <em>why</em>.</p>
+    <button class="hero-cta" onclick="startAssessment()">Start Free Assessment →</button>
+    <p class="hero-note">No account needed. Instant results.</p>
+  </div>
+</section>
+
+<!-- ═══════════ TRUST BAR ═══════════ -->
+<div class="container">
+  <div class="trust-bar">
+    <div class="trust-item"><div class="num">12</div><div class="label">Questions</div></div>
+    <div class="trust-item"><div class="num">3 min</div><div class="label">To Complete</div></div>
+    <div class="trust-item"><div class="num">9</div><div class="label">Signal Patterns</div></div>
+    <div class="trust-item"><div class="num">100%</div><div class="label">Private</div></div>
+  </div>
+</div>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<div class="container how-section" id="howSection">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">🔍</div>
+      <h3>Answer 12 Questions</h3>
+      <p>About how your stomach behaves — not what you've been diagnosed with.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">🧠</div>
+      <h3>We Decode the Pattern</h3>
+      <p>Your symptoms connect into a signal — pointing to which system is driving the issue.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">📋</div>
+      <h3>Get Your Action Plan</h3>
+      <p>3 specific, kitchen-level actions you can take starting tomorrow morning.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ ASSESSMENT ═══════════ -->
+<div class="container" id="assessment">
+  <div class="progress-label">Question <span id="qCurrent">1</span> of 12</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="question-card" id="questionCard">
+    <div class="q-counter" id="qCategory"></div>
+    <h3 id="qText"></h3>
+    <div class="options" id="qOptions"></div>
+  </div>
+</div>
+
+<!-- ═══════════ RESULTS ═══════════ -->
+<div class="container" id="results">
+  <div class="result-card">
+    <div class="result-header">
+      <div class="result-badge" id="resultBadge">Your Gut Signal</div>
+      <h3 id="resultTitle"></h3>
+      <p class="subtitle" id="resultSubtitle"></p>
+    </div>
+    <div class="result-section">
+      <h4>What's Happening</h4>
+      <p id="resultWhat"></p>
+    </div>
+    <div class="result-section">
+      <h4>The Real Cause</h4>
+      <p id="resultWhy"></p>
+    </div>
+    <div class="result-section">
+      <h4>Your 3 Priority Actions</h4>
+      <ol class="action-list" id="resultActions"></ol>
+    </div>
+  </div>
+
+  <div class="offer-box">
+    <h4>Want the Full 28-Day Path?</h4>
+    <p>Your results above are the starting point. The Gut Signal 28-Day Protocol gives you a complete, day-by-day plan to address the root cause — not just manage symptoms.</p>
+    <div class="offer-price">$29 <span>one-time</span></div>
+    <p style="font-size:13px;color:#6b6b66;margin-top:2px;">28-day email protocol • Kitchen-level actions • Progress tracking • Lifetime access</p>
+    <br>
+    <a href="#waitlist" class="offer-btn" onclick="joinWaitlist()">Get the 28-Day Protocol →</a>
+    <p class="offer-guarantee">30-day money-back guarantee. No questions asked.</p>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> Gut Signal provides wellness information for educational purposes only.
+    This assessment is not a medical diagnosis. It does not replace your doctor.
+    If you have severe or persistent symptoms, please consult a healthcare professional.
+  </div>
+</div>
+
+<!-- ═══════════ WAITLIST MODAL ═══════════ -->
+<div id="waitlistModal" class="hidden" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:100;">
+  <div style="background:white;border-radius:16px;padding:32px 28px;max-width:420px;width:90%;text-align:center;">
+    <h3 style="font-size:20px;margin-bottom:8px;">You're Early</h3>
+    <p style="color:#6b6b66;font-size:14px;margin-bottom:20px;">The Gut Signal 28-Day Protocol is launching soon. Join the waitlist and get 20% off at launch.</p>
+    <input type="email" id="waitlistEmail" placeholder="Your email address" style="width:100%;padding:12px 16px;border:1.5px solid #e0ded8;border-radius:8px;font-size:15px;margin-bottom:12px;font-family:inherit;">
+    <button onclick="submitWaitlist()" style="width:100%;background:#2d5a4b;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;">Join Waitlist</button>
+    <button onclick="closeWaitlist()" style="background:none;border:none;color:#999;font-size:13px;margin-top:12px;cursor:pointer;">No thanks</button>
+  </div>
+</div>
+
+<footer class="container">
+  <p>Gut Signal &copy; 2026 &mdash; Decode your body's signals. Take the right action.</p>
+</footer>
+
+<script>
+// ═══════════════════════════════════════
+// GUT SIGNAL — Assessment Engine
+// Based on 9-Grid Positioning: Acid × Motility × Mucosa
+//                          × Liver-Loop × Blood × Nerve
+// ═══════════════════════════════════════
+
+const questions = [
+  {
+    id: 'q1',
+    category: 'Digestive Rhythm',
+    text: 'After eating, what do you most often experience within 1–2 hours?',
+    options: [
+      { text: 'Heavy bloating — like food just sits there', scores: { motility: 2, liver: 1 } },
+      { text: 'Acid or burning creeping up my throat', scores: { acid: 2, liver: 1, nerve: 1 } },
+      { text: 'Nothing specific — just no appetite lately', scores: { motility: 1, nerve: 1 } },
+      { text: 'I feel fine after meals', scores: {} }
+    ]
+  },
+  {
+    id: 'q2',
+    category: 'Stress Response',
+    text: 'When you\'re stressed, tense, or anxious — what happens to your stomach?',
+    options: [
+      { text: 'It tightens or cramps up immediately', scores: { nerve: 3, motility: 1 } },
+      { text: 'I get nauseous or completely lose my appetite', scores: { nerve: 2, motility: 1 } },
+      { text: 'I eat more — stress makes me hungry', scores: { nerve: 1 } },
+      { text: 'No connection I\'ve noticed', scores: {} }
+    ]
+  },
+  {
+    id: 'q3',
+    category: 'Acid Signals',
+    text: 'How often do you notice acid reflux, heartburn, or a sour taste?',
+    options: [
+      { text: 'Daily or almost daily — it\'s a constant battle', scores: { acid: 3, liver: 2 } },
+      { text: 'A few times a week, especially at night', scores: { acid: 2, liver: 1, nerve: 1 } },
+      { text: 'Only after specific trigger foods', scores: { acid: 1, liver: 1 } },
+      { text: 'Rarely or never', scores: {} }
+    ]
+  },
+  {
+    id: 'q4',
+    category: 'Energy & Recovery',
+    text: 'What best describes your energy through the day?',
+    options: [
+      { text: 'I crash hard after meals — need a nap', scores: { blood: 2, motility: 1 } },
+      { text: 'Consistently low — running on empty no matter what I eat', scores: { blood: 3, mucosa: 1 } },
+      { text: 'Energy dips but comes back after a snack', scores: { blood: 1 } },
+      { text: 'Generally steady throughout the day', scores: {} }
+    ]
+  },
+  {
+    id: 'q5',
+    category: 'Sleep & Recovery',
+    text: 'How well do you sleep — honestly?',
+    options: [
+      { text: 'I wake up at 3–4 AM and can\'t get back to sleep', scores: { nerve: 3, liver: 1 } },
+      { text: 'I have trouble falling asleep — mind won\'t shut off', scores: { nerve: 2 } },
+      { text: 'I sleep but wake up feeling unrefreshed', scores: { nerve: 1, blood: 1 } },
+      { text: 'I sleep well most nights', scores: {} }
+    ]
+  },
+  {
+    id: 'q6',
+    category: 'Elimination',
+    text: 'What\'s your bowel movement pattern like — typically?',
+    options: [
+      { text: 'Constipated — often go 2+ days without', scores: { liver: 2, motility: 2 } },
+      { text: 'Loose, urgent, or diarrhea — especially after meals', scores: { liver: 2, blood: 1 } },
+      { text: 'Alternating — constipation some days, loose others', scores: { liver: 1, nerve: 1 } },
+      { text: 'Regular and comfortable', scores: {} }
+    ]
+  },
+  {
+    id: 'q7',
+    category: 'Bitter Signals',
+    text: 'Do you notice a bitter or metallic taste in your mouth — especially in the morning?',
+    options: [
+      { text: 'Yes — almost every morning', scores: { liver: 3, acid: 1 } },
+      { text: 'Occasionally, when my stomach is acting up', scores: { liver: 2 } },
+      { text: 'Only when reflux is bad', scores: { liver: 1, acid: 1 } },
+      { text: 'No, never noticed this', scores: {} }
+    ]
+  },
+  {
+    id: 'q8',
+    category: 'Stomach Capacity',
+    text: 'After a normal-sized meal, do you feel uncomfortably full very quickly?',
+    options: [
+      { text: 'Yes — a few bites and I\'m done, it\'s frustrating', scores: { motility: 3, nerve: 1 } },
+      { text: 'Sometimes, with heavier or greasy foods', scores: { motility: 2 } },
+      { text: 'Only when I eat too fast', scores: { motility: 1 } },
+      { text: 'No, I can eat a normal portion comfortably', scores: {} }
+    ]
+  },
+  {
+    id: 'q9',
+    category: 'Circulation',
+    text: 'Do your hands and feet tend to feel cold — even when others are comfortable?',
+    options: [
+      { text: 'Always cold — even in summer my hands are chilly', scores: { blood: 3, mucosa: 2 } },
+      { text: 'Often — especially fingers and toes', scores: { blood: 2, mucosa: 1 } },
+      { text: 'Sometimes, when I\'m tired or hungry', scores: { blood: 1 } },
+      { text: 'Rarely — I run warm', scores: {} }
+    ]
+  },
+  {
+    id: 'q10',
+    category: 'Physical Sensation',
+    text: 'If you gently press on your upper belly (below the ribcage) — what do you feel?',
+    options: [
+      { text: 'Tender or uncomfortable — I avoid pressing there', scores: { mucosa: 2, motility: 1 } },
+      { text: 'Bloated, distended — feels like a balloon', scores: { motility: 2, liver: 1 } },
+      { text: 'Hard to describe — just doesn\'t feel quite right', scores: { mucosa: 1, nerve: 1 } },
+      { text: 'Normal — no tenderness or unusual feeling', scores: {} }
+    ]
+  },
+  {
+    id: 'q11',
+    category: 'Outer Signals',
+    text: 'Have you noticed changes in your skin, hair, or complexion?',
+    options: [
+      { text: 'Skin looks dull, sallow, or greyish lately', scores: { blood: 2, mucosa: 2 } },
+      { text: 'Breakouts that seem tied to my digestion', scores: { liver: 1, blood: 1 } },
+      { text: 'Dry, flaky patches — especially in winter', scores: { mucosa: 1, blood: 1 } },
+      { text: 'No noticeable changes', scores: {} }
+    ]
+  },
+  {
+    id: 'q12',
+    category: 'Timeline',
+    text: 'How long have you been dealing with digestive discomfort or stomach issues?',
+    options: [
+      { text: 'Less than 6 months — it\'s relatively new', scores: {} },
+      { text: '6 months to 2 years — it comes and goes', scores: { chronic: 1 } },
+      { text: '2–5 years — I\'ve learned to live with it', scores: { chronic: 2 } },
+      { text: 'More than 5 years — it\'s just part of my life now', scores: { chronic: 3, nerve: 1, blood: 1 } }
+    ]
+  }
+];
+
+// Score accumulators
+let scores = { acid: 0, motility: 0, mucosa: 0, liver: 0, blood: 0, nerve: 0, chronic: 0 };
+let currentQuestion = 0;
+
+function startAssessment() {
+  document.getElementById('howSection').style.display = 'none';
+  document.querySelector('.hero').style.display = 'none';
+  document.querySelector('.trust-bar').style.display = 'none';
+  document.getElementById('assessment').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  scores = { acid: 0, motility: 0, mucosa: 0, liver: 0, blood: 0, nerve: 0, chronic: 0 };
+  currentQuestion = 0;
+  showQuestion();
+  document.getElementById('assessment').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    showResults();
+    return;
+  }
+  const q = questions[currentQuestion];
+  document.getElementById('qCurrent').textContent = currentQuestion + 1;
+  document.getElementById('progressFill').style.width = ((currentQuestion / questions.length) * 100) + '%';
+  document.getElementById('qCategory').textContent = q.category;
+  document.getElementById('qText').textContent = q.text;
+
+  let optsHtml = '';
+  q.options.forEach((opt, i) => {
+    optsHtml += `<button class="option" onclick="selectAnswer(${i}, this)">${opt.text}</button>`;
+  });
+  document.getElementById('qOptions').innerHTML = optsHtml;
+}
+
+function selectAnswer(index, btn) {
+  // Visual feedback
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  // Accumulate scores
+  const chosen = questions[currentQuestion].options[index];
+  Object.entries(chosen.scores).forEach(([key, val]) => {
+    scores[key] = (scores[key] || 0) + val;
+  });
+
+  // Next question after brief delay
+  setTimeout(() => {
+    currentQuestion++;
+    showQuestion();
+    document.getElementById('assessment').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 300);
+}
+
+function showResults() {
+  document.getElementById('assessment').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderResult();
+}
+
+function determinePattern() {
+  const f = scores;
+  // Determine dominant FUNCTION dimension
+  const funcMax = Math.max(f.acid, f.motility, f.mucosa);
+  const funcDom = [];
+  if (f.acid === funcMax) funcDom.push('acid');
+  if (f.motility === funcMax) funcDom.push('motility');
+  if (f.mucosa === funcMax) funcDom.push('mucosa');
+
+  // Determine dominant CYCLE dimension
+  const cycleMax = Math.max(f.liver, f.blood, f.nerve);
+  const cycleDom = [];
+  if (f.liver === cycleMax) cycleDom.push('liver');
+  if (f.blood === cycleMax) cycleDom.push('blood');
+  if (f.nerve === cycleMax) cycleDom.push('nerve');
+
+  // If all scores are very low, it's mild
+  const totalScore = f.acid + f.motility + f.mucosa + f.liver + f.blood + f.nerve;
+  if (totalScore <= 4) return { type: 'mild', func: 'balanced', cycle: 'balanced' };
+
+  // If only nerve is dominant with low other scores
+  if (f.nerve >= 5 && f.liver <= 2 && f.blood <= 2 && f.acid <= 2 && f.motility <= 2) {
+    return { type: 'nerve_primary', func: funcDom[0] || 'motility', cycle: 'nerve' };
+  }
+
+  // If liver + acid dominant
+  if (f.liver >= 4 && f.acid >= 3) {
+    return { type: 'acid_liver_loop', func: 'acid', cycle: 'liver' };
+  }
+
+  // If motility + nerve dominant
+  if (f.motility >= 4 && f.nerve >= 3) {
+    return { type: 'motility_nerve_block', func: 'motility', cycle: 'nerve' };
+  }
+
+  // If blood + mucosa dominant
+  if (f.blood >= 3 && f.mucosa >= 3) {
+    return { type: 'mucosa_blood_starvation', func: 'mucosa', cycle: 'blood' };
+  }
+
+  // Liver dominant (regardless of function)
+  if (cycleDom.includes('liver') && f.liver >= 5) {
+    return { type: 'liver_dominant', func: funcDom[0] || 'acid', cycle: 'liver' };
+  }
+
+  // Nerve dominant
+  if (cycleDom.includes('nerve') && f.nerve >= 5) {
+    return { type: 'nerve_dominant', func: funcDom[0] || 'motility', cycle: 'nerve' };
+  }
+
+  // Blood dominant
+  if (cycleDom.includes('blood') && f.blood >= 4) {
+    return { type: 'blood_dominant', func: funcDom[0] || 'mucosa', cycle: 'blood' };
+  }
+
+  // Acid dominant
+  if (funcDom.includes('acid') && f.acid >= 4) {
+    return { type: 'acid_primary', func: 'acid', cycle: cycleDom[0] || 'liver' };
+  }
+
+  // Multi-system: high scores across the board
+  if (totalScore >= 12) {
+    return { type: 'multi_system', func: funcDom[0] || 'mixed', cycle: cycleDom[0] || 'mixed' };
+  }
+
+  return { type: 'mixed', func: funcDom[0] || 'motility', cycle: cycleDom[0] || 'liver' };
+}
+
+// Pattern definitions
+const patterns = {
+  acid_liver_loop: {
+    badge: 'The Borrowed Acid Pattern',
+    title: 'Your Stomach Is Borrowing Acid — And Paying Interest',
+    subtitle: 'Acid × Liver Loop detected. Your acid symptoms aren\'t about too much acid. They\'re about acid going the wrong direction.',
+    what: 'Your stomach acid production has dropped — likely because your liver is sending a "slow down" signal through the portal vein. When stomach acid runs low, your body borrows bile acid from the gallbladder to keep digestion going. It works temporarily, but bile in the stomach irritates the lining and creeps up the esophagus — giving you reflux, burning, and that bitter morning taste.',
+    why: 'The root cause isn\'t in your stomach. It\'s in the <strong>liver-gut loop</strong>: the portal vein carries blood from your gut to your liver for filtering. When this pathway gets congested (from processed food, alcohol, stress, or irregular eating patterns), the liver signals the stomach to reduce acid production. Less acid → more borrowing → more reflux. Antacids mask this. They don\'t clear the liver pathway.',
+    actions: [
+      { title: 'Morning: Warm lemon water before anything else', desc: '8 oz warm water + juice of ½ lemon. First thing. This gently stimulates the liver\'s bile flow and primes stomach acid production for the day. Do this for 7 days and notice the morning bitter taste change.' },
+      { title: 'Before meals: Apple cider vinegar ritual', desc: '1 tbsp raw ACV in 4 oz water, 10 minutes before your two largest meals. Not to "add acid" — it signals your stomach\'s parietal cells to produce their own. Think of it as a wake-up call, not a replacement.' },
+      { title: 'Evening: Press the LV3 acupoint (2 min each foot)', desc: 'Find the depression between your big toe and second toe, about 1 inch back. Press firmly with your thumb for 2 minutes per foot before bed. This point clears liver congestion — the upstream pressure release.' }
+    ]
+  },
+  motility_nerve_block: {
+    badge: 'The Silent Nerve Pattern',
+    title: 'Your Stomach Didn\'t Get the Memo to Move',
+    subtitle: 'Motility × Nerve Block detected. Food sits in your stomach because the "start moving" signal is being intercepted.',
+    what: 'Your stomach\'s smooth muscle needs a clear signal from the vagus nerve to contract and push food downward. When you\'re in a chronic stress state, your sympathetic nervous system ("fight or flight") overrides the vagus nerve ("rest and digest"). The result: food sits in your stomach for hours, causing bloating, early fullness, and that heavy-rock feeling after meals.',
+    why: 'The <strong>nerve-stomach axis</strong> is jammed. The vagus nerve runs from your brainstem down to your digestive organs, but it can\'t compete with an overactive sympathetic system. This isn\'t "all in your head" — it\'s a physical nerve pathway being suppressed. The 3 AM waking is a classic sign: your liver\'s detox cycle (1-3 AM in circadian rhythm) triggers a cortisol spike that wakes you up, because the liver and vagus nerve share regulatory pathways.',
+    actions: [
+      { title: 'Before eating: 5 slow belly breaths', desc: 'Sit down. Place one hand on your belly. Breathe in through your nose for 4 counts (belly expands), out through your mouth for 6 counts. Repeat 5 times. This activates the vagus nerve — telling your stomach "it\'s safe to digest now." Do this before every meal.' },
+      { title: 'After meals: Gentle clockwise belly massage', desc: 'Lie flat or recline. Using your palm, massage in a clockwise circle around your navel — starting from the lower right, up, across, down the left. 36 circles. Follows the natural direction of your colon. 5-10 minutes after eating.' },
+      { title: 'Evening: Press ST36 (3 inches below kneecap)', desc: 'Find the spot 3 finger-widths below your kneecap, just outside the shinbone. Press firmly with your thumb for 3 minutes each leg. This is the most powerful digestive acupoint — it directly stimulates gastric motility and vagus nerve tone.' }
+    ]
+  },
+  mucosa_blood_starvation: {
+    badge: 'The Starved Mucosa Pattern',
+    title: 'Your Stomach Lining Is Rebuilding Without Materials',
+    subtitle: 'Mucosa × Blood Starvation detected. The repair crew shows up, but the supply truck never arrives.',
+    what: 'Your stomach lining renews itself every 3-5 days — one of the fastest-regenerating tissues in your body. But that renewal requires raw materials: amino acids, minerals, vitamins delivered through the bloodstream. When circulation to the gut is compromised (cold hands and feet, post-meal crashes, dull complexion), your mucosa is trying to rebuild with half the supplies it needs.',
+    why: 'The <strong>blood-mucosa axis</strong> is under-supplied. The microvasculature that feeds your stomach lining is part of the splanchnic circulation — the same system that diverts blood to your gut after eating. If this system is weak (from chronic under-eating, poor protein intake, or digestive inefficiency that prevents nutrient absorption), the mucosa can\'t maintain its protective barrier. The result: tenderness, sensitivity, and a stomach that overreacts to foods that never bothered you before.',
+    actions: [
+      { title: 'Breakfast: Prioritize warm, cooked protein', desc: 'Your stomach lining is made of protein. Start your day with easily digestible, warm protein: soft-boiled eggs, bone broth, or congee with shredded chicken. Not cold smoothies or raw foods — your mucosa needs warmth to absorb. Do this for 14 days.' },
+      { title: 'Mid-morning: Ginger-jujube tea', desc: '3 slices fresh ginger + 3 dried jujubes (red dates) simmered in 2 cups water for 15 minutes. Drink warm between breakfast and lunch. Ginger increases microcirculation to the gut. Jujube provides iron and polysaccharides that support mucosal repair.' },
+      { title: 'Evening: Soak your feet in warm water (15 min)', desc: 'Before bed, soak your feet in comfortably hot water (not scalding) for 15 minutes. This dilates peripheral blood vessels and redirects circulation back toward your core — including your digestive organs. The simplest, most overlooked circulation hack.' }
+    ]
+  },
+  liver_dominant: {
+    badge: 'The Liver Slowdown Pattern',
+    title: 'Your Liver Is Hitting the Brakes on Digestion',
+    subtitle: 'Liver-dominant pattern. The upstream traffic jam is downstream of your stomach.',
+    what: 'Your symptoms point primarily to the liver-gut pathway. The liver processes everything absorbed from your intestines through the portal vein. When this filtration system is overloaded — from dietary patterns, medications, alcohol, or metabolic stress — it signals the stomach and intestines to slow down. Less acid. Slower motility. The backup creates bloating, irregular bowel movements, and that bitter taste.',
+    why: 'This is the most common pattern in people who eat "healthy" but still have gut issues. The problem isn\'t what you\'re eating — it\'s that the liver processing pipeline is congested. Think of it as a highway: the stomach and intestines are sending traffic, but the liver off-ramp is backed up. No amount of antacids or probiotics clears a backed-up off-ramp.',
+    actions: [
+      { title: 'Morning: Warm lemon water + 5 min of movement', desc: 'Lemon water stimulates bile flow. Follow with 5 minutes of gentle twisting movements — side bends, torso rotations — to physically mobilize the liver area (right upper abdomen).' },
+      { title: 'Diet: Reduce the liver\'s workload for 14 days', desc: 'Cut out alcohol, fried foods, and added sugars completely for 2 weeks. Replace with bitter greens (arugula, dandelion), beets, and artichokes — foods that naturally support Phase II liver detoxification.' },
+      { title: 'Midday: Acupressure on LV3 + LI4', desc: 'LV3 (between big toe and second toe). LI4 (web between thumb and index finger). Press each for 2 minutes, both sides. This combination is the classic liver-clearing pair — used for thousands of years.' }
+    ]
+  },
+  nerve_dominant: {
+    badge: 'The Stress Intercept Pattern',
+    title: 'Stress Is Intercepting Your Digestive Signals',
+    subtitle: 'Nerve-dominant pattern. Your brain and gut are in a tug-of-war — and your stomach is losing.',
+    what: 'Your nervous system is the primary driver of your gut symptoms. The gut has its own nervous system (the enteric nervous system, sometimes called the "second brain"), but it\'s constantly overridden by signals from above. When your brain is in threat-detection mode, digestion gets deprioritized. Blood flow shifts away from the gut. Enzyme secretion drops. Motility slows or spasms.',
+    why: 'This isn\'t "just stress" — it\'s a measurable physiological cascade. The hypothalamic-pituitary-adrenal (HPA) axis releases cortisol, which directly suppresses digestive function. Over time, the gut\'s circadian clock gets desynchronized from the brain\'s clock — you eat at normal times, but your gut acts like it\'s 3 AM. Re-synchronizing these clocks is the real fix.',
+    actions: [
+      { title: 'Eat at the same times every day for 2 weeks', desc: 'Breakfast within 30 min of waking. Lunch at the same hour. Dinner 3+ hours before bed. No snacking in between. This retrains your gut\'s circadian clock — the most underrated digestive intervention.' },
+      { title: 'After dinner: 10-minute walk, no phone', desc: 'A slow walk without stimulation. No podcasts, no scrolling. Just walking. This activates the parasympathetic nervous system and physically aids gastric emptying. The "no phone" part is essential — digital input keeps your sympathetic system engaged.' },
+      { title: 'Evening: 4-7-8 breathing before bed', desc: 'Inhale through nose for 4 counts. Hold for 7 counts. Exhale through mouth for 8 counts. Repeat 4 times. This pattern directly stimulates the vagus nerve and lowers cortisol. Do it lying in bed, lights off.' }
+    ]
+  },
+  blood_dominant: {
+    badge: 'The Undersupplied Pattern',
+    title: 'Your Gut Has the Blueprint — But Not the Bricks',
+    subtitle: 'Blood-dominant pattern. The repair instructions are there. The delivery system isn\'t.',
+    what: 'Your body knows how to heal your gut — it does it every 3-5 days. But healing requires delivery: amino acids, vitamins, minerals, oxygen, all carried by blood to the intestinal lining. When circulation is weak (cold extremities, post-meal exhaustion, dull skin, slow wound healing), the gut receives suboptimal supplies. It heals — just poorly, incompletely, and slowly.',
+    why: 'The splanchnic circulation (the blood network serving your digestive organs) receives about 25% of cardiac output after a meal. If your overall circulatory tone is low — often from insufficient protein intake, iron deficiency, or chronic under-eating — that 25% is of a smaller pie. Your stomach lining competes with every other organ for limited resources, and it shows up as tenderness, slow recovery from irritation, and food sensitivities that seem to multiply.',
+    actions: [
+      { title: 'Protein at every meal — starting with breakfast', desc: 'Aim for 20-30g of complete protein per meal. Eggs, fish, poultry, bone broth. Protein provides the amino acids for mucosal repair. Without it, your gut is trying to rebuild with borrowed materials.' },
+      { title: 'Iron-rich foods + vitamin C pairing', desc: 'Iron carries oxygen in blood. Pair iron-rich foods (lean red meat, spinach, lentils) with vitamin C (lemon juice, bell peppers) in the same meal to boost absorption 3x. Do this at lunch — iron absorption peaks midday.' },
+      { title: 'Morning: Dry brushing before shower (3 min)', desc: 'Using a natural bristle brush, brush your skin in long strokes toward your heart — feet up, hands inward, belly clockwise. This stimulates peripheral circulation and lymphatic drainage. 3 minutes. Notice how your skin color changes after one week.' }
+    ]
+  },
+  acid_primary: {
+    badge: 'The Acid Miscalibration Pattern',
+    title: 'Your Stomach Acid Is Out of Tune — Not Too High, Not Too Low',
+    subtitle: 'Acid-primary pattern. The timing and rhythm of your acid production is off — not the amount.',
+    what: 'Stomach acid isn\'t a simple "too much" or "too little" problem. It\'s about timing and rhythm. Your parietal cells should produce acid in anticipation of food, peak during digestion, and taper off when the stomach empties. When this rhythm is miscalibrated, you can have acid when you don\'t need it (nighttime burning) and not enough when you do (bloating after protein-rich meals).',
+    why: 'The stomach\'s acid pump is regulated by three things: histamine signals from the stomach wall, gastrin from the lower stomach, and acetylcholine from the vagus nerve. When any of these three signals is off — often from irregular eating patterns, chronic snacking, or stress — the acid rhythm drifts. Antacids and PPIs suppress acid across the board, which fixes the symptom but further disrupts the natural rhythm.',
+    actions: [
+      { title: 'Stop snacking — 3 meals, 4-5 hours apart', desc: 'Your stomach needs a full empty cycle between meals to reset its acid rhythm. Constant grazing keeps the pump on low all day. 3 meals with no food in between for 2 weeks resets the clock.' },
+      { title: 'Before protein-heavy meals: Bitter greens or ACV', desc: 'Bitter flavors (arugula, dandelion greens, endive) or 1 tbsp apple cider vinegar in water 10 min before meals stimulate the cephalic phase of digestion — the "anticipatory" acid release that primes your stomach.' },
+      { title: 'Don\'t drink water during meals — 30 min before and after', desc: 'Large amounts of liquid with meals dilute stomach acid and slow digestion. Drink between meals instead. Small sips with food are fine — a full glass is not.' }
+    ]
+  },
+  multi_system: {
+    badge: 'The Multi-System Pattern',
+    title: 'Multiple Systems Are Involved — Here\'s the Order to Address Them',
+    subtitle: 'Complex pattern detected. Your gut signals span multiple regulatory loops. Good news: there\'s a clear priority order.',
+    what: 'Your assessment shows involvement across multiple systems — this is common when digestive issues have been present for years. The liver loop, nerve axis, and circulatory system are all contributing. This doesn\'t mean the problem is "worse" — it means the compensation patterns have become layered over time. Each system tried to cover for the others, and now they\'re all fatigued.',
+    why: 'The key insight with multi-system patterns: <strong>you don\'t fix everything at once.</strong> There is a priority order. Clear the liver pathway first (it\'s the filter — if it\'s backed up, nothing downstream works). Then restore nerve signaling (so the stomach gets the right instructions). Then support circulation (so repair materials arrive). Attempting all three simultaneously is why most people fail — it\'s too much, and the systems compete for the body\'s adaptive capacity.',
+    actions: [
+      { title: 'Weeks 1-2: Clear the liver pathway first', desc: 'Morning lemon water. No alcohol. Bitter greens with lunch and dinner. LV3 acupressure every evening. Keep everything else the same — don\'t change your whole life at once. One target: the liver.' },
+      { title: 'Weeks 3-4: Restore nerve signaling', desc: 'Add belly breathing before meals. Fixed meal times. Evening walk without phone. Keep the liver habits from weeks 1-2 — they\'re now your baseline. Second target: the vagus nerve.' },
+      { title: 'Week 5+: Support circulatory delivery', desc: 'Add warm protein breakfast. Ginger-jujube tea. Foot soaks. Keep liver + nerve habits. Third target: blood supply to the mucosa. By now the upstream systems are clearer, so circulation improvements will actually reach the gut.' }
+    ]
+  },
+  mild: {
+    badge: 'Mild Signals Detected',
+    title: 'Your Gut Signals Are Subtle — Here\'s What to Watch',
+    subtitle: 'No strong pattern detected. Your digestive system is largely functioning well, with minor signs worth tracking.',
+    what: 'Your responses suggest your digestive system is handling things reasonably well. The signals you do notice are mild and intermittent — which is normal. A healthy gut isn\'t silent; it gives occasional feedback. The key is knowing which signals are normal variation and which ones are early warnings.',
+    why: 'This is the ideal place to be: aware enough to notice signals, but not in distress. The most valuable thing you can do right now is establish a baseline — so if something shifts, you\'ll catch it early. Your gut\'s resilience is high. Protect it with simple, consistent habits rather than aggressive interventions.',
+    actions: [
+      { title: 'Track 3 things for 7 days', desc: 'Write down: (1) What time you eat each meal, (2) How your stomach feels 1 hour after, (3) Your energy level (1-10). Patterns emerge in 7 days that are invisible day-to-day.' },
+      { title: 'One fermented food daily', desc: 'Kimchi, sauerkraut, kefir, or yogurt — just one serving with any meal. Supports microbiome diversity, which is the foundation of gut resilience.' },
+      { title: 'Check your water intake', desc: 'Most people with mild gut signals are slightly dehydrated. Aim for clear or pale yellow urine by mid-afternoon. Water between meals, not during.' }
+    ]
+  },
+  mixed: {
+    badge: 'Mixed Signal Pattern',
+    title: 'Your Gut Is Speaking Multiple Languages — Let\'s Find the Dominant One',
+    subtitle: 'Your signals don\'t fit a single pattern — which is common and informative in itself.',
+    what: 'Your responses show a blend of signals across acid, motility, and the regulatory cycles. This is actually more common than a "pure" pattern — because the gut\'s systems are deeply interconnected. A mixed pattern usually means one system was the original issue, and others have stepped in to compensate over time.',
+    why: 'The good news: a mixed pattern means your body is still actively compensating — it hasn\'t given up on any one pathway. The challenge is identifying which system to address first. For most mixed patterns, starting with the liver pathway (it\'s the central filter) gives the clearest feedback. If you feel noticeably better within 5-7 days, you\'ve found the priority. If not, shift to the nerve pathway next.',
+    actions: [
+      { title: 'Week 1: Test the liver hypothesis', desc: 'Morning lemon water. No alcohol. Add bitter greens to lunch. If your symptoms improve noticeably, the liver pathway is your priority. Continue for 28 days.' },
+      { title: 'Week 2 (if no change): Test the nerve hypothesis', desc: 'Fixed meal times. Belly breathing before meals. Evening walk. If this makes the difference, the nerve pathway is primary.' },
+      { title: 'Track and compare', desc: 'Rate your top 3 symptoms (1-10) every evening. After 2 weeks, you\'ll have clear data on which intervention moved the needle. Most people guess wrong — the data will surprise you.' }
+    ]
+  }
+};
+
+function renderResult() {
+  const pattern = determinePattern();
+  const p = patterns[pattern.type] || patterns.mixed;
+
+  document.getElementById('resultBadge').textContent = p.badge;
+  document.getElementById('resultTitle').textContent = p.title;
+  document.getElementById('resultSubtitle').textContent = p.subtitle;
+  document.getElementById('resultWhat').textContent = p.what;
+  document.getElementById('resultWhy').innerHTML = p.why;
+
+  let actionsHtml = '';
+  p.actions.forEach((a, i) => {
+    actionsHtml += `
+      <li>
+        <span class="action-num">${i + 1}</span>
+        <div><strong>${a.title}</strong><br><span style="color:#6b6b66;font-size:14px;">${a.desc}</span></div>
+      </li>`;
+  });
+  document.getElementById('resultActions').innerHTML = actionsHtml;
+
+  // Scroll to results
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ═══════════ Waitlist ═══════════
+function joinWaitlist() {
+  document.getElementById('waitlistModal').classList.remove('hidden');
+}
+
+function closeWaitlist() {
+  document.getElementById('waitlistModal').classList.add('hidden');
+}
+
+const API_URL = 'http://localhost:8800/api/waitlist';
+
+async function submitWaitlist() {
+  const email = document.getElementById('waitlistEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+
+  const pattern = determinePattern().type;
+
+  // Show loading
+  const modal = document.getElementById('waitlistModal');
+  modal.querySelector('button').disabled = true;
+
+  try {
+    const resp = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, pattern })
+    });
+    const data = await resp.json();
+
+    if (data.ok) {
+      modal.innerHTML = `
+        <div style="background:white;border-radius:16px;padding:32px 28px;max-width:420px;width:90%;text-align:center;">
+          <div style="font-size:40px;margin-bottom:12px;">✓</div>
+          <h3 style="font-size:20px;margin-bottom:8px;">You're on the list!</h3>
+          <p style="color:#6b6b66;font-size:14px;">We'll email you as soon as the 28-Day Protocol launches. Early subscribers get 20% off.</p>
+          <button onclick="closeWaitlist()" style="background:none;border:none;color:#2d5a4b;font-size:15px;margin-top:16px;cursor:pointer;font-weight:600;">Close</button>
+        </div>`;
+    } else {
+      throw new Error(data.error || 'Unknown error');
+    }
+  } catch (err) {
+    // If server is down, fall back to localStorage
+    console.warn('Server unreachable, saving locally:', err.message);
+    const waitlist = JSON.parse(localStorage.getItem('gutsignal_waitlist') || '[]');
+    waitlist.push({ email, date: new Date().toISOString(), pattern });
+    localStorage.setItem('gutsignal_waitlist', JSON.stringify(waitlist));
+
+    modal.innerHTML = `
+      <div style="background:white;border-radius:16px;padding:32px 28px;max-width:420px;width:90%;text-align:center;">
+        <div style="font-size:40px;margin-bottom:12px;">✓</div>
+        <h3 style="font-size:20px;margin-bottom:8px;">You're on the list!</h3>
+        <p style="color:#6b6b66;font-size:14px;">We'll let you know when we launch.</p>
+        <button onclick="closeWaitlist()" style="background:none;border:none;color:#2d5a4b;font-size:15px;margin-top:16px;cursor:pointer;font-weight:600;">Close</button>
+      </div>`;
+  }
+}
+
+// Close modal on background click
+document.addEventListener('click', function(e) {
+  if (e.target.id === 'waitlistModal') closeWaitlist();
+});
+
+console.log('Gut Signal v1.0 — Assessment engine loaded.');
+console.log('9-grid positioning: Acid × Motility × Mucosa  ×  Liver × Blood × Nerve');
+console.log('Waitlist stored in localStorage. Ready for backend integration.');
+</script>
+
+</body>
+</html>
