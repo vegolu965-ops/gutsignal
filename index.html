@@ -417,12 +417,22 @@
   </div>
 
   <div class="offer-box">
-    <h4>Want the Full 28-Day Path?</h4>
-    <p>Your results above are the starting point. The Gut Signal 28-Day Protocol gives you a complete, day-by-day plan to address the root cause — not just manage symptoms.</p>
+    <h4>Want the Full 28-Day Protocol?</h4>
+    <p style="font-size:13px;color:#6b6b66;margin-bottom:16px;">You just got your pattern + 1 action to start. Here's what the complete version includes:</p>
+
+    <div style="text-align:left;font-size:14px;line-height:1.8;margin-bottom:20px;padding:0 10px;">
+      <div>📅 <strong>28 daily emails</strong> — one action per day, no guessing</div>
+      <div>🎯 <strong>All 3 priority actions</strong> — the full sequence for your pattern</div>
+      <div>📈 <strong>4 progress checkpoints</strong> — Day 7, 14, 21, 28</div>
+      <div>📖 <strong>Acupressure guide</strong> — 6 key points with diagrams</div>
+      <div>🍳 <strong>7-day meal template</strong> — matched to your pattern</div>
+      <div>📋 <strong>28-day tracking sheet</strong> — see your own progress curve</div>
+      <div>🔑 <strong>Lifetime "5 for life" list</strong> — what to keep after Day 28</div>
+    </div>
+
     <div class="offer-price">$29 <span>one-time</span></div>
-    <p style="font-size:13px;color:#6b6b66;margin-top:2px;">28-day email protocol • Kitchen-level actions • Progress tracking • Lifetime access</p>
     <br>
-    <a href="https://vego07.gumroad.com/l/tkzaxi" class="offer-btn" target="_blank">Get the 28-Day Protocol →</a>
+    <a href="https://vego07.gumroad.com/l/tkzaxi" class="offer-btn" target="_blank">Get the Full Protocol →</a>
     <p class="offer-guarantee">30-day money-back guarantee. No questions asked.</p>
   </div>
 
@@ -854,13 +864,15 @@ function renderResult() {
   document.getElementById('resultWhy').innerHTML = p.why;
 
   let actionsHtml = '';
-  p.actions.forEach((a, i) => {
+  // Free: show only the first action
+  if (p.actions.length > 0) {
+    const a = p.actions[0];
     actionsHtml += `
       <li>
-        <span class="action-num">${i + 1}</span>
+        <span class="action-num">1</span>
         <div><strong>${a.title}</strong><br><span style="color:#6b6b66;font-size:14px;">${a.desc}</span></div>
       </li>`;
-  });
+  }
   document.getElementById('resultActions').innerHTML = actionsHtml;
 
   // Scroll to results
