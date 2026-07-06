@@ -119,7 +119,32 @@
   .step h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
   .step p { font-size: 13px; color: var(--sub); line-height: 1.45; }
 
-  /* ── Assessment (hidden initially) ── */
+  /* ── Philosophy ── */
+  .phil-section { padding: 48px 0; border-top: 1px solid var(--border); }
+  .phil-section h2 { text-align: center; font-size: 22px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; }
+  .phil-sub { text-align: center; font-size: 14px; color: var(--sub); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.55; }
+  .phil-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .phil-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 24px; border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .phil-card .phil-icon { font-size: 24px; margin-bottom: 10px; }
+  .phil-card h4 { font-size: 15px; font-weight: 650; margin-bottom: 6px; letter-spacing: -0.2px; }
+  .phil-card p { font-size: 13px; color: var(--sub); line-height: 1.55; }
+
+  .phil-about {
+    margin-top: 28px; text-align: center;
+    font-size: 14px; color: var(--sub); line-height: 1.65;
+    max-width: 540px; margin-left: auto; margin-right: auto;
+  }
+  .phil-about strong { color: var(--text); }
+
+  @media (max-width: 480px) {
+    .phil-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Assessment ── */
   #assessment { display: none; padding: 20px 0 60px; }
   .progress-bar {
     height: 4px; background: var(--border); border-radius: 2px;
@@ -303,6 +328,38 @@
       <p>3 specific, kitchen-level actions you can take starting tomorrow morning.</p>
     </div>
   </div>
+</div>
+
+<!-- ═══════════ PHILOSOPHY ═══════════ -->
+<div class="container phil-section" id="philSection">
+  <h2>Why This Works — When Nothing Else Has</h2>
+  <p class="phil-sub">Most gut health tools look at symptoms in isolation. We look at <strong>why your stomach is struggling</strong> — by mapping the three systems that control it.</p>
+  <div class="phil-grid">
+    <div class="phil-card">
+      <div class="phil-icon">🫁</div>
+      <h4>The Liver-Gut Loop</h4>
+      <p>Your liver filters everything absorbed from your gut. When this pathway congests — from diet patterns, stress, or medications — it sends a "slow down" signal to your stomach. Less acid. Slower digestion. Reflux that antacids can't fix.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-icon">🧠</div>
+      <h4>The Nerve-Gut Axis</h4>
+      <p>Your stomach needs a clear signal from the vagus nerve to function. Chronic stress overrides this signal — food sits undigested, bloating builds, and your gut clock desynchronizes. The fix isn't another pill. It's restoring the signal.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-icon">🩸</div>
+      <h4>The Blood-Mucosa Connection</h4>
+      <p>Your stomach lining renews itself every 3–5 days — one of the fastest-healing tissues in your body. But renewal requires delivery: amino acids, minerals, oxygen, all carried by blood. When circulation is weak, the repair crew never gets the materials.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-icon">🕐</div>
+      <h4>The 28-Day Cycle</h4>
+      <p>Your stomach lining rebuilds in 21–28 days. Your liver cells regenerate in ~21 days. Your nervous system resets its rhythm in ~28 days. We didn't choose 28 days — your biology did. It's the minimum window for all three systems to complete one full repair cycle.</p>
+    </div>
+  </div>
+  <p class="phil-about">
+    <strong>Built on a 2,000-year-old medical tradition — translated into modern physiology.</strong><br>
+    Gut Signal is based on a systems framework that has treated digestive disorders for centuries. We've translated it into the language of liver loops, vagus nerve signaling, and mucosal repair — so you get the precision of ancient diagnosis with the clarity of modern science. Founded by a team of clinicians and health practitioners who believe the best medicine starts in your kitchen, not a prescription pad.
+  </p>
 </div>
 
 <!-- ═══════════ ASSESSMENT ═══════════ -->
