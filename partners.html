@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Gut Signal — For Healthcare Practitioners</title>
-<meta name="description" content="A TCM-based digestive wellness observation tool for licensed healthcare practitioners. Partnership inquiries welcome.">
+<meta name="description" content="A TCM-based digestive wellness observation tool. Created by a TCM practitioner. Seeking conversations with licensed practitioners.">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -32,7 +32,6 @@
 
   .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
 
-  /* ── Nav ── */
   nav {
     padding: 16px 0;
     border-bottom: 1px solid var(--border);
@@ -42,7 +41,6 @@
   nav .logo { font-weight: 700; font-size: 16px; color: var(--green); letter-spacing: -0.3px; }
   nav a { color: var(--sub); text-decoration: none; font-size: 14px; }
 
-  /* ── Hero ── */
   .hero {
     text-align: center;
     padding: 56px 0 40px;
@@ -74,23 +72,7 @@
     margin: 0 auto 28px;
     line-height: 1.6;
   }
-  .hero-cta {
-    display: inline-block;
-    background: var(--green);
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 14px 36px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.2s;
-    letter-spacing: 0.2px;
-  }
-  .hero-cta:hover { background: #234d3f; }
 
-  /* ── Section ── */
   section { padding: 48px 0; }
   section.alt { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   section h2 {
@@ -111,7 +93,6 @@
     line-height: 1.55;
   }
 
-  /* ── About the creator ── */
   .creator-card {
     background: var(--white);
     border: 1px solid var(--border);
@@ -137,104 +118,39 @@
   .creator-info .title { font-size: 13px; color: var(--sub); margin-bottom: 8px; }
   .creator-info p { font-size: 14px; color: var(--text); line-height: 1.6; }
 
-  /* ── Framework grid ── */
-  .framework-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    max-width: 620px;
-    margin: 0 auto;
-  }
-  .framework-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    box-shadow: var(--shadow);
-  }
-  .framework-card .label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: var(--gold);
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .framework-card h4 { font-size: 15px; font-weight: 650; margin-bottom: 4px; }
-  .framework-card p { font-size: 13px; color: var(--sub); line-height: 1.5; }
-
   @media (max-width: 480px) {
-    .framework-grid { grid-template-columns: 1fr; }
     .creator-card { flex-direction: column; align-items: center; text-align: center; }
+    .testimonial-grid { grid-template-columns: 1fr !important; }
   }
 
-  /* ── How it works for practitioners ── */
-  .workflow {
-    max-width: 560px;
-    margin: 0 auto;
-  }
-  .workflow-step {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 24px;
-    align-items: flex-start;
-  }
-  .workflow-num {
-    flex-shrink: 0;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: var(--green);
-    color: white;
-    font-weight: 700;
-    font-size: 16px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .workflow-text h4 { font-size: 15px; font-weight: 650; margin-bottom: 4px; }
-  .workflow-text p { font-size: 14px; color: var(--sub); line-height: 1.55; }
-
-  /* ── Partnership model ── */
-  .model-grid {
+  .testimonial-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     max-width: 620px;
     margin: 0 auto;
   }
-  .model-card {
+  .testimonial-card {
     background: var(--white);
-    border: 1.5px solid var(--green);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 28px 24px;
-    text-align: center;
+    padding: 24px;
+    box-shadow: var(--shadow);
   }
-  .model-card.referral { border-color: var(--gold); }
-  .model-icon { font-size: 28px; margin-bottom: 12px; }
-  .model-card h4 { font-size: 16px; font-weight: 650; margin-bottom: 8px; }
-  .model-card p { font-size: 13px; color: var(--sub); line-height: 1.55; }
+  .testimonial-card blockquote {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 12px;
+    border: none;
+    padding: 0;
+  }
+  .testimonial-card .attribution {
+    font-size: 12px;
+    color: var(--sub);
+  }
 
-  @media (max-width: 480px) {
-    .model-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ── What doctors get ── */
-  .benefits-list {
-    max-width: 560px;
-    margin: 0 auto;
-    list-style: none;
-  }
-  .benefits-list li {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-  .benefits-list li:last-child { border-bottom: none; }
-  .benefit-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-
-  /* ── CTA ── */
   .cta-section {
     text-align: center;
     padding: 48px 0 56px;
@@ -247,21 +163,11 @@
     max-width: 520px;
     margin: 0 auto;
   }
-  .cta-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-  .cta-box p { font-size: 14px; color: var(--sub); margin-bottom: 20px; line-height: 1.55; }
-  .cta-dm {
-    display: inline-block;
-    background: var(--green);
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 14px 36px;
-    border-radius: 8px;
-    text-decoration: none;
-  }
+  .cta-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .cta-box p { font-size: 14px; color: var(--sub); margin-bottom: 16px; line-height: 1.6; }
+  .cta-box strong { color: var(--text); }
   .cta-note { font-size: 12px; color: #999; margin-top: 12px; }
 
-  /* ── Disclaimer ── */
   .disclaimer {
     font-size: 12px;
     color: #aaa;
@@ -280,6 +186,19 @@
     font-size: 13px;
     color: #bbb;
   }
+
+  .demo-btn {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .demo-btn:hover { background: #234d3f; }
 </style>
 </head>
 <body>
@@ -296,9 +215,8 @@
 <section class="hero">
   <div class="container">
     <div class="hero-badge">For Licensed Healthcare Practitioners</div>
-    <h1>A <span>TCM-Based</span> Digestive Wellness<br>Observation Tool for Your Practice</h1>
-    <p>I'm a Traditional Chinese Medicine practitioner with 8+ years of clinical experience. I've built a digestive pattern assessment tool based on a 9-grid positioning framework. I'm looking for licensed Western medicine, general practice, and gastroenterology practitioners to explore partnership models.</p>
-    <a href="#partnership" class="hero-cta">See Partnership Models →</a>
+    <h1>I built a <span>digestive pattern</span> assessment.<br>Patients like it. I'm looking for practitioners to talk to.</h1>
+    <p>I'm a Traditional Chinese Medicine practitioner with 8+ years of clinical experience. I developed a 12-question observation tool that maps digestive signals to one of 9 patterns — and the response from people who've tried it has been genuinely encouraging. Now I'm looking to connect with licensed practitioners who see potential in bridging TCM-based wellness support with conventional digestive care. I don't have a fixed partnership model in mind. I want to talk to people in the field and figure out what makes sense together.</p>
   </div>
 </section>
 
@@ -310,181 +228,46 @@
       <div class="creator-info">
         <h3>TCM Practitioner · 8+ Years Clinical</h3>
         <div class="title">Specializing in digestive health · Running a clinical training program in China</div>
-        <p>Over years of practice, I categorized stomach and digestive disorders into a set of fixed positioning patterns based on traditional Chinese medicine frameworks. Applying these categories in clinical settings has been consistently effective — patients who were stuck for years begin seeing results when patterns are correctly identified and addressed.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ THE TOOL ═══════════ -->
-<section class="alt">
-  <div class="container">
-    <h2>What the Tool Does</h2>
-    <p class="section-sub">A 12-question observation tool that maps digestive signals across 6 functional dimensions. It does not diagnose — it illuminates patterns that inform clinical conversation.</p>
-
-    <div class="framework-grid">
-      <div class="framework-card">
-        <div class="label">Function Layer</div>
-        <h4>Acid Regulation</h4>
-        <p>Timing and direction of stomach acid — not excess, but rhythm disruption</p>
-      </div>
-      <div class="framework-card">
-        <div class="label">Function Layer</div>
-        <h4>Motility</h4>
-        <p>Downward movement of digestion — whether food is moving properly through the tract</p>
-      </div>
-      <div class="framework-card">
-        <div class="label">Function Layer</div>
-        <h4>Mucosal Integrity</h4>
-        <p>Stomach lining health — the body's ability to maintain and repair its protective barrier</p>
-      </div>
-      <div class="framework-card">
-        <div class="label">Cycle Layer</div>
-        <h4>Liver-Loop Regulation</h4>
-        <p>Upper abdominal flow — whether there's stuckness above the stomach affecting downward movement</p>
-      </div>
-      <div class="framework-card">
-        <div class="label">Cycle Layer</div>
-        <h4>Blood & Nourishment</h4>
-        <p>Delivery of repair materials — whether the body has enough resources to maintain the gut lining</p>
-      </div>
-      <div class="framework-card">
-        <div class="label">Cycle Layer</div>
-        <h4>Nerve-Gut Connection</h4>
-        <p>Stress-digestion axis — whether the nervous system is interfering with digestive rhythm</p>
+        <p>Over years of practice, I categorized stomach and digestive disorders into a set of positioning patterns based on traditional Chinese medicine frameworks. The approach is practical: food-based protocols, daily rhythm adjustments, acupressure — things patients can actually do at home. Safe. Grounded. No exotic interventions.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════ REAL USER FEEDBACK ═══════════ -->
-<section>
+<section class="alt">
   <div class="container">
-    <h2>What the Community Is Saying</h2>
-    <p class="section-sub">Real comments from Reddit's r/ChineseMedicine community after trying the assessment. This is the kind of response that makes practitioners take notice.</p>
+    <h2>What People Are Saying</h2>
+    <p class="section-sub">Real, unsolicited responses from a single Reddit post. Patients understand it. Practitioners notice.</p>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:620px; margin:0 auto;">
-      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);">
-        <p style="font-size:14px; color:var(--text); line-height:1.6; font-style:italic; margin-bottom:12px;">"I just tried it and I think it's great! The questions were good overall, and I loved the specific TCM suggestions after the quiz. They were not general or basic — the suggestions are clearly rooted in TCM."</p>
-        <p style="font-size:12px; color:var(--sub);">— r/ChineseMedicine community member</p>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <blockquote>"I just tried it and I think it's great! The questions were good overall, and I loved the specific TCM suggestions after the quiz. They were not general or basic — the suggestions are clearly rooted in TCM."</blockquote>
+        <p class="attribution">— r/ChineseMedicine community member</p>
       </div>
-      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);">
-        <p style="font-size:14px; color:var(--text); line-height:1.6; font-style:italic; margin-bottom:12px;">"Love this! Very straight-forward and easy for the layperson to understand at the end. Sent you a DM — eager to learn more."</p>
-        <p style="font-size:12px; color:var(--sub);">— r/ChineseMedicine community member</p>
+      <div class="testimonial-card">
+        <blockquote>"Love this! Very straight-forward and easy for the layperson to understand at the end. Sent you a DM — eager to learn more."</blockquote>
+        <p class="attribution">— r/ChineseMedicine community member</p>
       </div>
-      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);">
-        <p style="font-size:14px; color:var(--text); line-height:1.6; font-style:italic; margin-bottom:12px;">"This is incredible. Well done."</p>
-        <p style="font-size:12px; color:var(--sub);">— r/ChineseMedicine community member</p>
+      <div class="testimonial-card">
+        <blockquote>"This is incredible. Well done."</blockquote>
+        <p class="attribution">— r/ChineseMedicine community member</p>
       </div>
-      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);">
-        <p style="font-size:14px; color:var(--text); line-height:1.6; font-style:italic; margin-bottom:12px;">"I've always found TCM interesting because it looks at the body differently than Western medicine."</p>
-        <p style="font-size:12px; color:var(--sub);">— r/ChineseMedicine community member</p>
+      <div class="testimonial-card">
+        <blockquote>"I've always found TCM interesting because it looks at the body differently than Western medicine."</blockquote>
+        <p class="attribution">— r/ChineseMedicine community member</p>
       </div>
     </div>
-
-    <p style="text-align:center; font-size:13px; color:var(--sub); margin-top:20px; max-width:540px; margin-left:auto; margin-right:auto; line-height:1.55;">These are real, unsolicited responses from a single Reddit post. When patients can see their own pattern mapped out, they engage — and they trust the practitioner who showed them.</p>
-  </div>
-</section>
-
-<!-- ═══════════ FOR PRACTITIONERS ═══════════ -->
-<section>
-  <div class="container">
-    <h2>How It Fits Into Your Practice</h2>
-    <p class="section-sub">This is not a replacement for clinical assessment. It's a pre-consultation observation layer that surfaces patterns worth investigating.</p>
-
-    <div class="workflow">
-      <div class="workflow-step">
-        <div class="workflow-num">1</div>
-        <div class="workflow-text">
-          <h4>Patient completes the 3-minute assessment</h4>
-          <p>Before or between consultations. No account needed. 12 questions about daily digestive signals — diet, stress response, sleep, physical sensations.</p>
-        </div>
-      </div>
-      <div class="workflow-step">
-        <div class="workflow-num">2</div>
-        <div class="workflow-text">
-          <h4>You receive the pattern result</h4>
-          <p>The tool maps responses to one of 9 observational patterns, surfacing which functional dimension appears most relevant. This informs — but does not replace — your clinical assessment.</p>
-        </div>
-      </div>
-      <div class="workflow-step">
-        <div class="workflow-num">3</div>
-        <div class="workflow-text">
-          <h4>You handle diagnosis & Western medical care</h4>
-          <p>You remain fully in charge of diagnosis, treatment planning, and medication management. The tool is a conversation starter, not a decision maker.</p>
-        </div>
-      </div>
-      <div class="workflow-step">
-        <div class="workflow-num">4</div>
-        <div class="workflow-text">
-          <h4>Option: TCM wellness support for interested patients</h4>
-          <p>For patients open to integrative approaches, I provide backend TCM-based dietary and lifestyle guidance — delivered through you, with you as the primary care coordinator.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ PARTNERSHIP MODEL ═══════════ -->
-<section class="alt" id="partnership">
-  <div class="container">
-    <h2>Partnership Models</h2>
-    <p class="section-sub">Two models. Both fully compliant — you remain the primary care provider. I handle TCM wellness support only.</p>
-
-    <div class="model-grid">
-      <div class="model-card">
-        <div class="model-icon">🤝</div>
-        <h4>Model A: Embedded Tool</h4>
-        <p>You embed the assessment in your practice workflow. Patients complete it pre-consultation. You use the pattern output to guide your clinical conversation. For patients interested in integrative TCM support, you refer them to my backend wellness protocol. Revenue sharing on referred cases.</p>
-      </div>
-      <div class="model-card referral">
-        <div class="model-icon">📊</div>
-        <h4>Model B: Co-Content & Data</h4>
-        <p>We co-produce educational content bridging Western and Chinese medicine perspectives on digestive health. Shared de-identified observational data. Joint articles, webinars, patient education materials. Traffic and content revenue shared. Build authority in both communities.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ HOW WE WORK TOGETHER ═══════════ -->
-<section>
-  <div class="container">
-    <h2>How We Work Together</h2>
-    <p class="section-sub">Not a vendor relationship. Two practitioners, each bringing their expertise to patients who need both.</p>
-
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:620px; margin:0 auto;">
-      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);">
-        <h4 style="font-size:15px; font-weight:650; margin-bottom:8px; color:var(--green);">You stay in the lead</h4>
-        <p style="font-size:14px; color:var(--sub); line-height:1.55;">You diagnose. You prescribe. You manage medications. The assessment surfaces patterns that inform your clinical conversation — nothing replaces your judgment. I never speak to your patients directly without going through you.</p>
-      </div>
-      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);">
-        <h4 style="font-size:15px; font-weight:650; margin-bottom:8px; color:var(--green);">I handle the TCM layer</h4>
-        <p style="font-size:14px; color:var(--sub); line-height:1.55;">For patients open to it, I provide dietary and lifestyle guidance rooted in TCM — meal timing, food pairings, acupressure, daily rhythm. Delivered through you. You keep the patient relationship; I provide the backend protocol.</p>
-      </div>
-      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);">
-        <h4 style="font-size:15px; font-weight:650; margin-bottom:8px; color:var(--green);">Shared revenue, zero risk</h4>
-        <p style="font-size:14px; color:var(--sub); line-height:1.55;">No upfront cost. No subscription. We agree on a per-patient or revenue-share model that makes sense for your practice. You only pay when patients engage. I carry the protocol cost.</p>
-      </div>
-      <div style="background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);">
-        <h4 style="font-size:15px; font-weight:650; margin-bottom:8px; color:var(--green);">Build authority together</h4>
-        <p style="font-size:14px; color:var(--sub); line-height:1.55;">Co-author educational content. Bridge Western and Chinese medicine for your patients and peers. Joint articles, webinars, case discussions. Each of us brings what the other doesn't have.</p>
-      </div>
-    </div>
-
-    <p style="text-align:center; font-size:14px; color:var(--text); margin-top:28px; max-width:540px; margin-left:auto; margin-right:auto; line-height:1.6;">
-      <strong>I'm here to fill the gap between diagnosis and daily life.</strong><br>
-      You do the part only you can do. I do the part that takes time you don't have.
-    </p>
   </div>
 </section>
 
 <!-- ═══════════ DEMO ═══════════ -->
-<section class="alt">
+<section>
   <div class="container" style="text-align:center;">
-    <h2>Try the Assessment Yourself</h2>
-    <p class="section-sub">See what your patients would experience. 12 questions. 3 minutes. The tool maps your digestive signals to one of 9 observational patterns.</p>
-    <a href="/gutsignal/" class="hero-cta" style="display:inline-block;">Try the Demo →</a>
-    <p style="font-size:12px;color:#999;margin-top:12px;">Free. No account. No email required for the demo.</p>
+    <h2>See the Tool for Yourself</h2>
+    <p class="section-sub">12 questions. 3 minutes. Maps digestive signals to one of 9 patterns. The suggestions are practical, food-based, and grounded in TCM — the kind of thing patients can actually follow.</p>
+    <a href="/gutsignal/" class="demo-btn">Try the Demo →</a>
+    <p style="font-size:12px;color:#999;margin-top:12px;">Free. No account. No email required.</p>
   </div>
 </section>
 
@@ -493,16 +276,18 @@
   <div class="container">
     <div class="cta-box">
       <h3>Let's Talk</h3>
-      <p>I'm looking for licensed practitioners — Western medicine, general practice, gastroenterology — who are curious about integrating a TCM-based observational layer into their digestive health practice.<br><br><strong>This is for practitioners only.</strong> I do not provide direct care to individual patients. All patient-facing care goes through you.</p>
-      <p style="font-size:14px;color:var(--text);"><strong>Send me a DM on Reddit.</strong><br>We'll verify credentials, discuss which model fits your practice, and go from there.</p>
-      <p class="cta-note">Reddit DM only. I will not solicit your contact information — you share it when you're ready.</p>
+      <p>I'm looking to connect with <strong>licensed practitioners</strong> — Western medicine, general practice, gastroenterology — who are curious about what a TCM-based wellness layer could add to their digestive health practice.</p>
+      <p>I don't have a fixed model. I want to hear what your practice looks like, what your patients need, and whether there's something worth building together.</p>
+      <p><strong>This is for practitioners only.</strong> I do not treat patients directly.</p>
+      <p style="font-size:15px;color:var(--text);margin-top:16px;"><strong>DM me on Reddit.</strong> We'll go from there.</p>
+      <p class="cta-note">I won't ask for your contact info — you share it when you're ready.</p>
     </div>
   </div>
 </section>
 
 <!-- ═══════════ DISCLAIMER ═══════════ -->
 <div class="disclaimer">
-  <strong>Important Disclaimer:</strong> Gut Signal is a wellness observation tool created by a Traditional Chinese Medicine practitioner. It is <strong>not a medical device, not a diagnostic tool, and does not provide medical advice.</strong> The patterns identified are based on traditional Chinese medicine frameworks and are intended for informational and educational purposes only. This tool cannot and should not replace consultation with a licensed healthcare professional. It does not diagnose, treat, cure, or prevent any disease. <strong>Do not stop, adjust, or replace any prescribed medication based on information from this tool.</strong> Partnership inquiries are for licensed healthcare practitioners only. I do not provide direct patient care — all patient-facing medical services remain the responsibility of the licensed practitioner.
+  <strong>Important Disclaimer:</strong> Gut Signal is a wellness observation tool created by a Traditional Chinese Medicine practitioner. It is <strong>not a medical device, not a diagnostic tool, and does not provide medical advice.</strong> The patterns identified are based on traditional Chinese medicine frameworks and are intended for informational and educational purposes only. This tool cannot and should not replace consultation with a licensed healthcare professional. It does not diagnose, treat, cure, or prevent any disease. <strong>Do not stop, adjust, or replace any prescribed medication based on information from this tool.</strong> I do not provide direct patient care — all patient-facing medical services remain the responsibility of the licensed practitioner.
 </div>
 
 <footer>
