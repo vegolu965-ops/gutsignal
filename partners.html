@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Gut Signal — For Healthcare Practitioners</title>
+<meta name="description" content="A TCM-based digestive wellness observation tool for licensed healthcare practitioners. Partnership inquiries welcome.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf9f6;
+    --text: #2d2d2b;
+    --sub: #6b6b66;
+    --green: #2d5a4b;
+    --green-light: #e8f0ec;
+    --gold: #c09640;
+    --gold-light: #f8f0d0;
+    --white: #ffffff;
+    --border: #e0ded8;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Nav ── */
+  nav {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  nav .logo { font-weight: 700; font-size: 16px; color: var(--green); letter-spacing: -0.3px; }
+  nav a { color: var(--sub); text-decoration: none; font-size: 14px; }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 56px 0 40px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    color: #1a1a18;
+  }
+  .hero h1 span { color: var(--green); }
+  .hero p {
+    font-size: 16px;
+    color: var(--sub);
+    max-width: 520px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    letter-spacing: 0.2px;
+  }
+  .hero-cta:hover { background: #234d3f; }
+
+  /* ── Section ── */
+  section { padding: 48px 0; }
+  section.alt { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    text-align: center;
+  }
+  section .section-sub {
+    text-align: center;
+    font-size: 14px;
+    color: var(--sub);
+    margin-bottom: 32px;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+
+  /* ── About the creator ── */
+  .creator-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .creator-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    color: var(--green);
+  }
+  .creator-info h3 { font-size: 17px; font-weight: 650; margin-bottom: 4px; }
+  .creator-info .title { font-size: 13px; color: var(--sub); margin-bottom: 8px; }
+  .creator-info p { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+  /* ── Framework grid ── */
+  .framework-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .framework-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  .framework-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .framework-card h4 { font-size: 15px; font-weight: 650; margin-bottom: 4px; }
+  .framework-card p { font-size: 13px; color: var(--sub); line-height: 1.5; }
+
+  @media (max-width: 480px) {
+    .framework-grid { grid-template-columns: 1fr; }
+    .creator-card { flex-direction: column; align-items: center; text-align: center; }
+  }
+
+  /* ── How it works for practitioners ── */
+  .workflow {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .workflow-step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .workflow-num {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .workflow-text h4 { font-size: 15px; font-weight: 650; margin-bottom: 4px; }
+  .workflow-text p { font-size: 14px; color: var(--sub); line-height: 1.55; }
+
+  /* ── Partnership model ── */
+  .model-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .model-card {
+    background: var(--white);
+    border: 1.5px solid var(--green);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .model-card.referral { border-color: var(--gold); }
+  .model-icon { font-size: 28px; margin-bottom: 12px; }
+  .model-card h4 { font-size: 16px; font-weight: 650; margin-bottom: 8px; }
+  .model-card p { font-size: 13px; color: var(--sub); line-height: 1.55; }
+
+  @media (max-width: 480px) {
+    .model-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── What doctors get ── */
+  .benefits-list {
+    max-width: 560px;
+    margin: 0 auto;
+    list-style: none;
+  }
+  .benefits-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .benefits-list li:last-child { border-bottom: none; }
+  .benefit-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center;
+    padding: 48px 0 56px;
+  }
+  .cta-box {
+    background: linear-gradient(135deg, var(--green-light) 0%, var(--bg) 100%);
+    border: 1.5px solid var(--green);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .cta-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .cta-box p { font-size: 14px; color: var(--sub); margin-bottom: 20px; line-height: 1.55; }
+  .cta-dm {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+  .cta-note { font-size: 12px; color: #999; margin-top: 12px; }
+
+  /* ── Disclaimer ── */
+  .disclaimer {
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+    padding: 24px 0 40px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .disclaimer strong { color: #888; }
+
+  footer {
+    text-align: center;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: #bbb;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav>
+  <div class="container">
+    <div class="logo">Gut Signal</div>
+    <a href="/gutsignal/">Try the Assessment →</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">For Licensed Healthcare Practitioners</div>
+    <h1>A <span>TCM-Based</span> Digestive Wellness<br>Observation Tool for Your Practice</h1>
+    <p>I'm a Traditional Chinese Medicine practitioner with 8+ years of clinical experience. I've built a digestive pattern assessment tool based on a 9-grid positioning framework. I'm looking for licensed Western medicine, general practice, and gastroenterology practitioners to explore partnership models.</p>
+    <a href="#partnership" class="hero-cta">See Partnership Models →</a>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT THE CREATOR ═══════════ -->
+<section style="padding:0 0 48px;">
+  <div class="container">
+    <div class="creator-card">
+      <div class="creator-avatar">🌿</div>
+      <div class="creator-info">
+        <h3>TCM Practitioner · 8+ Years Clinical</h3>
+        <div class="title">Specializing in digestive health · Running a clinical training program in China</div>
+        <p>Over years of practice, I categorized stomach and digestive disorders into a set of fixed positioning patterns based on traditional Chinese medicine frameworks. Applying these categories in clinical settings has been consistently effective — patients who were stuck for years begin seeing results when patterns are correctly identified and addressed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ THE TOOL ═══════════ -->
+<section class="alt">
+  <div class="container">
+    <h2>What the Tool Does</h2>
+    <p class="section-sub">A 12-question observation tool that maps digestive signals across 6 functional dimensions. It does not diagnose — it illuminates patterns that inform clinical conversation.</p>
+
+    <div class="framework-grid">
+      <div class="framework-card">
+        <div class="label">Function Layer</div>
+        <h4>Acid Regulation</h4>
+        <p>Timing and direction of stomach acid — not excess, but rhythm disruption</p>
+      </div>
+      <div class="framework-card">
+        <div class="label">Function Layer</div>
+        <h4>Motility</h4>
+        <p>Downward movement of digestion — whether food is moving properly through the tract</p>
+      </div>
+      <div class="framework-card">
+        <div class="label">Function Layer</div>
+        <h4>Mucosal Integrity</h4>
+        <p>Stomach lining health — the body's ability to maintain and repair its protective barrier</p>
+      </div>
+      <div class="framework-card">
+        <div class="label">Cycle Layer</div>
+        <h4>Liver-Loop Regulation</h4>
+        <p>Upper abdominal flow — whether there's stuckness above the stomach affecting downward movement</p>
+      </div>
+      <div class="framework-card">
+        <div class="label">Cycle Layer</div>
+        <h4>Blood & Nourishment</h4>
+        <p>Delivery of repair materials — whether the body has enough resources to maintain the gut lining</p>
+      </div>
+      <div class="framework-card">
+        <div class="label">Cycle Layer</div>
+        <h4>Nerve-Gut Connection</h4>
+        <p>Stress-digestion axis — whether the nervous system is interfering with digestive rhythm</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOR PRACTITIONERS ═══════════ -->
+<section>
+  <div class="container">
+    <h2>How It Fits Into Your Practice</h2>
+    <p class="section-sub">This is not a replacement for clinical assessment. It's a pre-consultation observation layer that surfaces patterns worth investigating.</p>
+
+    <div class="workflow">
+      <div class="workflow-step">
+        <div class="workflow-num">1</div>
+        <div class="workflow-text">
+          <h4>Patient completes the 3-minute assessment</h4>
+          <p>Before or between consultations. No account needed. 12 questions about daily digestive signals — diet, stress response, sleep, physical sensations.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="workflow-num">2</div>
+        <div class="workflow-text">
+          <h4>You receive the pattern result</h4>
+          <p>The tool maps responses to one of 9 observational patterns, surfacing which functional dimension appears most relevant. This informs — but does not replace — your clinical assessment.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="workflow-num">3</div>
+        <div class="workflow-text">
+          <h4>You handle diagnosis & Western medical care</h4>
+          <p>You remain fully in charge of diagnosis, treatment planning, and medication management. The tool is a conversation starter, not a decision maker.</p>
+        </div>
+      </div>
+      <div class="workflow-step">
+        <div class="workflow-num">4</div>
+        <div class="workflow-text">
+          <h4>Option: TCM wellness support for interested patients</h4>
+          <p>For patients open to integrative approaches, I provide backend TCM-based dietary and lifestyle guidance — delivered through you, with you as the primary care coordinator.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PARTNERSHIP MODEL ═══════════ -->
+<section class="alt" id="partnership">
+  <div class="container">
+    <h2>Partnership Models</h2>
+    <p class="section-sub">Two models. Both fully compliant — you remain the primary care provider. I handle TCM wellness support only.</p>
+
+    <div class="model-grid">
+      <div class="model-card">
+        <div class="model-icon">🤝</div>
+        <h4>Model A: Embedded Tool</h4>
+        <p>You embed the assessment in your practice workflow. Patients complete it pre-consultation. You use the pattern output to guide your clinical conversation. For patients interested in integrative TCM support, you refer them to my backend wellness protocol. Revenue sharing on referred cases.</p>
+      </div>
+      <div class="model-card referral">
+        <div class="model-icon">📊</div>
+        <h4>Model B: Co-Content & Data</h4>
+        <p>We co-produce educational content bridging Western and Chinese medicine perspectives on digestive health. Shared de-identified observational data. Joint articles, webinars, patient education materials. Traffic and content revenue shared. Build authority in both communities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ WHAT YOU GET ═══════════ -->
+<section>
+  <div class="container">
+    <h2>What's In It for You</h2>
+    <p class="section-sub">This is a professional partnership — not a sales pitch. Here's what you gain.</p>
+
+    <ul class="benefits-list">
+      <li>
+        <span class="benefit-icon">📋</span>
+        <span><strong>A structured pre-consultation tool</strong> — patients arrive with clearer self-awareness, making your consultation time more efficient.</span>
+      </li>
+      <li>
+        <span class="benefit-icon">🌿</span>
+        <span><strong>Integrated TCM support for patients who want it</strong> — you remain primary care provider. I handle the dietary and lifestyle guidance layer only.</span>
+      </li>
+      <li>
+        <span class="benefit-icon">📈</span>
+        <span><strong>Better patient adherence</strong> — when patients see their own pattern mapped out, they understand <em>why</em> the recommendations matter. Compliance improves.</span>
+      </li>
+      <li>
+        <span class="benefit-icon">📝</span>
+        <span><strong>Co-branded educational content</strong> — articles and resources that bridge Western medicine and TCM perspectives. Builds authority for both partners.</span>
+      </li>
+      <li>
+        <span class="benefit-icon">💰</span>
+        <span><strong>Additional revenue stream</strong> — revenue sharing on referred TCM wellness protocols. No upfront cost to you.</span>
+      </li>
+      <li>
+        <span class="benefit-icon">🔬</span>
+        <span><strong>Observational data for clinical curiosity</strong> — de-identified pattern data that may surface interesting correlations worth exploring.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ DEMO ═══════════ -->
+<section class="alt">
+  <div class="container" style="text-align:center;">
+    <h2>Try the Assessment Yourself</h2>
+    <p class="section-sub">See what your patients would experience. 12 questions. 3 minutes. The tool maps your digestive signals to one of 9 observational patterns.</p>
+    <a href="/gutsignal/" class="hero-cta" style="display:inline-block;">Try the Demo →</a>
+    <p style="font-size:12px;color:#999;margin-top:12px;">Free. No account. No email required for the demo.</p>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <h3>Let's Talk</h3>
+      <p>I'm looking for licensed practitioners — Western medicine, general practice, gastroenterology — who are curious about integrating a TCM-based observational layer into their digestive health practice.<br><br><strong>This is for practitioners only.</strong> I do not provide direct care to individual patients. All patient-facing care goes through you.</p>
+      <p style="font-size:14px;color:var(--text);"><strong>Send me a DM on Reddit.</strong><br>We'll verify credentials, discuss which model fits your practice, and go from there.</p>
+      <p class="cta-note">Reddit DM only. I will not solicit your contact information — you share it when you're ready.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DISCLAIMER ═══════════ -->
+<div class="disclaimer">
+  <strong>Important Disclaimer:</strong> Gut Signal is a wellness observation tool created by a Traditional Chinese Medicine practitioner. It is <strong>not a medical device, not a diagnostic tool, and does not provide medical advice.</strong> The patterns identified are based on traditional Chinese medicine frameworks and are intended for informational and educational purposes only. This tool cannot and should not replace consultation with a licensed healthcare professional. It does not diagnose, treat, cure, or prevent any disease. <strong>Do not stop, adjust, or replace any prescribed medication based on information from this tool.</strong> Partnership inquiries are for licensed healthcare practitioners only. I do not provide direct patient care — all patient-facing medical services remain the responsibility of the licensed practitioner.
+</div>
+
+<footer>
+  <div class="container">
+    <p>Gut Signal &copy; 2026 · TCM Practitioner Tool · <a href="/gutsignal/" style="color:inherit;">Assessment Demo</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
