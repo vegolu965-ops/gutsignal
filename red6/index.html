@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>胃病自测 · Red6</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#fdf8f4;color:#3d2e1e;min-height:100vh;display:flex;justify-content:center}
+#app{width:100%;max-width:420px;padding:32px 20px 48px;min-height:100vh}
+.screen{display:none}
+.screen.active{display:flex;flex-direction:column;align-items:center}
+/* Welcome */
+#welcome{padding-top:60px;text-align:center}
+#welcome .icon{font-size:52px;margin-bottom:20px}
+#welcome h1{font-size:21px;font-weight:700;color:#5c3d2e;margin-bottom:10px}
+#welcome .sub{font-size:14px;color:#9b8575;margin-bottom:36px;line-height:1.6}
+#welcome .hint{font-size:12px;color:#c4b3a5;margin-top:14px}
+.btn{display:inline-block;border:none;border-radius:24px;padding:14px 44px;font-size:16px;font-weight:600;cursor:pointer;transition:transform .15s}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:linear-gradient(135deg,#c8956c,#b07d52);color:#fff;box-shadow:0 4px 16px rgba(176,125,82,.3)}
+.btn-outline{background:#fff;color:#b07d52;border:1.5px solid #d4b896;padding:12px 32px;font-size:14px;margin-top:28px}
+/* Quiz */
+#quiz{padding-top:20px;width:100%}
+.progress{width:100%;height:4px;background:#e8ddd2;border-radius:2px;margin-bottom:20px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#c8956c,#e0b88a);border-radius:2px;transition:width .3s;width:0%}
+.q-num{font-size:12px;color:#b09780;margin-bottom:10px}
+.question{font-size:17px;font-weight:600;color:#4a3525;margin-bottom:24px;line-height:1.5;width:100%}
+.options{width:100%;display:flex;flex-direction:column;gap:10px}
+.opt{width:100%;padding:14px 16px;background:#fff;border:1.5px solid #e8ddd2;border-radius:14px;font-size:14px;color:#5c3d2e;text-align:left;cursor:pointer;display:flex;align-items:flex-start;gap:10px;line-height:1.5;transition:all .15s}
+.opt:active{background:#fdf5ed;border-color:#c8956c}
+.opt .o{flex-shrink:0;width:22px;height:22px;background:#f5ede4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#b07d52;margin-top:1px}
+/* Result */
+#result{padding-top:40px;text-align:center}
+#result .icon{font-size:48px;margin-bottom:16px}
+#result h2{font-size:20px;font-weight:700;color:#4a3525;margin-bottom:6px}
+.quote{font-size:15px;font-weight:600;color:#b07d52;background:#fdf5ed;border-radius:12px;padding:14px 18px;margin:14px 0 18px;line-height:1.6;width:100%}
+.desc{font-size:14px;color:#7a6454;line-height:1.7;margin-bottom:16px;width:100%}
+.dir{background:#fff;border:1.5px solid #e8ddd2;border-radius:14px;padding:14px 18px;width:100%;font-size:14px;color:#4a3525;line-height:1.6;text-align:left}
+.dir b{color:#b07d52}
+.product{margin-top:16px;width:100%;background:linear-gradient(135deg,#fff8f0,#fff3e6);border:1.5px solid #e0c8a8;border-radius:14px;padding:16px 18px;text-align:left}
+.product .p-label{font-size:11px;color:#b07d52;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.product .p-name{font-size:16px;font-weight:700;color:#5c3d2e;margin-bottom:4px}
+.product .p-desc{font-size:13px;color:#8b7160;line-height:1.5;margin-bottom:10px}
+.product .p-store{font-size:13px;color:#b07d52;font-weight:600}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="welcome" class="screen active">
+<div class="icon">🔍</div>
+<h1>你的胃到底哪里堵了？</h1>
+<p class="sub">同症状可不同根。<br>6 道题，找到你的那一条路。</p>
+<button class="btn btn-primary" onclick="start()">开始自测</button>
+<p class="hint">约 2 分钟 · 凭直觉选</p>
+</div>
+<div id="quiz" class="screen">
+<div class="progress"><div class="progress-fill" id="bar"></div></div>
+<p class="q-num" id="qn"></p>
+<h2 class="question" id="qt"></h2>
+<div class="options" id="qo"></div>
+</div>
+<div id="result" class="screen">
+<div class="icon" id="ri"></div>
+<h2 id="rt"></h2>
+<div class="quote" id="rq"></div>
+<p class="desc" id="rd"></p>
+<div class="dir" id="rr"></div>
+<div class="product" id="rp"></div>
+<button class="btn btn-outline" onclick="start()">再测一次</button>
+</div>
+</div>
+<script>
+var Q=[{t:"你吃完饭最常出现哪种感觉？",o:[{k:"A",t:"胀、打嗝，感觉东西堵在胃里不下"},{k:"B",t:"累、困，整个人像被掏空"},{k:"C",t:"胃突然收紧，一紧张就更明显"},{k:"D",t:"嘴里黏、舌苔厚、人浮肿"}]},{t:"你的胃不舒服，什么时候最容易犯？",o:[{k:"A",t:"吃油腻的、吃多了立刻胀"},{k:"B",t:"饿的时候反酸、空腹痛"},{k:"C",t:"压力大、生气、焦虑时发作"},{k:"D",t:"梅雨天、换季、湿气重时加重"}]},{t:"你的睡眠和胃的关系？",o:[{k:"A",t:"胃胀到睡不着，躺下更难受"},{k:"B",t:"睡着但醒来像没睡，人还是累"},{k:"C",t:"凌晨1-3点醒，醒了胃也不舒服"},{k:"D",t:"怎么睡都不解乏，深度睡眠几乎没有"}]},{t:"早上起来看舌头，什么样？",o:[{k:"A",t:"舌边红，有齿痕"},{k:"B",t:"舌淡、舌体瘦、没血色"},{k:"C",t:"舌尖红、舌苔不匀"},{k:"D",t:"舌苔厚腻、舌体胖大"}]},{t:"你的胃问题多久了？",o:[{k:"A",t:"最近几个月才出现，偶尔犯"},{k:"B",t:"断断续续一两年，经常影响日常"},{k:"C",t:"反复好多年了，天天不舒服"}]},{t:"除了胃，身上还有哪种感觉？",o:[{k:"A",t:"容易发火、口苦、偏头痛"},{k:"B",t:"面色萎黄、手脚凉、容易瘀青"},{k:"C",t:"心慌、记性差、容易紧张"},{k:"D",t:"身体沉、水肿、小便不畅"},{k:"E",t:"腰酸、怕冷、怎么休息都缓不过来"}]}];
+var R={A:{icon:"🔄",t:"肝肠循环堵",q:"你的胃在说：消化管道堵了。",d:"胆汁不够、门静脉回流慢。吃进去的东西清不走，所以胀、打嗝、反酸、口苦——全是肝肠循环在喊停。",r:"<b>方向：</b>疏肝利胆、消食导滞。给消化管道松绑，让食物往下走。",p:{n:"山楂丸",d:"消食导滞，帮胃把积食推下去",l:"小红书搜「园膳纪」找一号链接"}},B:{icon:"🩸",t:"血液循环堵",q:"你的胃在说：修不动了。",d:"修复胃粘膜的材料运不过来——血不够、送不到。面色黄、容易累、胃粘膜越来越薄。",r:"<b>方向：</b>养血修复。先把运输车队养起来，胃粘膜才有人修。",p:{n:"猴头菇粉",d:"直接修胃粘膜，给胃壁补材料",l:"小红书搜「园膳纪」找二号链接"}},C:{icon:"⚡",t:"神经内分泌乱",q:"你的胃在说：指挥官疯了。",d:"迷走神经被压力压住了——胃不知道该休息还是该工作。一紧张就胃疼、凌晨醒、没食欲。不是胃坏了，是调度系统出 bug。",r:"<b>方向：</b>疏肝安神。把紧绷的神经松开，让胃恢复自己的节奏。",p:{n:"柠檬蜂蜜饮",d:"疏肝理气，把紧绷的神经松开",l:"小红书搜「园膳纪」找三号链接"}},D:{icon:"💧",t:"淋巴-体液淤",q:"你的胃在说：垃圾清不走了。",d:"胃修复完的废料堆在组织里——淋巴不转。舌苔厚、浮肿、浑身沉。湿气不是「体质」，是淋巴没干活。",r:"<b>方向：</b>通淋巴、化湿浊。把淤堵的废料冲走，给胃一个干净的环境。",p:{n:"醋饮",d:"活血通淋巴，把淤堵的废料冲走",l:"小红书搜「园膳纪」找四号链接"}},E:{icon:"🧠",t:"脑膜淋巴卡",q:"你的胃在说：深度开关坏了。",d:"脑膜淋巴只在深度睡眠时清垃圾。你睡不深→大脑垃圾清不掉→交感神经下不来→胃一直紧绷。",r:"<b>方向：</b>补肾填精、安神助眠。先把深度睡眠找回来，胃才能松下来。",p:{n:"养元乳粉",d:"填精补肾，给深度睡眠铺底",l:"小红书搜「园膳纪」找五号链接"}},X:{icon:"🏠",t:"地基弱",q:"你的胃在说：几层都磨损了。",d:"不是一条通路堵，是五条都走不动了——地基撑不住了。需要一个把你兜住的东西，从底层慢慢养。",r:"<b>方向：</b>健脾养胃打地基。不急攻，从每天早上第一口开始。",p:{n:"谷物晨糊",d:"健脾养胃打地基，每天早上第一口",l:"小红书搜「园膳纪」找六号链接"}}};
+var A=[],I=0;
+function s(id){document.querySelectorAll(".screen").forEach(function(e){e.classList.remove("active")});document.getElementById(id).classList.add("active")}
+function start(){A=[];I=0;s("quiz");rQ()}
+function rQ(){var q=Q[I];document.getElementById("qn").textContent="第 "+(I+1)+" / "+Q.length+" 题";document.getElementById("qt").textContent=q.t;document.getElementById("bar").style.width=(I/Q.length*100)+"%";var h="";q.o.forEach(function(o){h+='<div class="opt" onclick="pick(\''+o.k+'\')"><span class="o">'+o.k+'</span><span>'+o.t+"</span></div>"});document.getElementById("qo").innerHTML=h}
+function pick(k){A.push(k);I++;if(I>=Q.length){document.getElementById("bar").style.width="100%";show()}else{document.getElementById("bar").style.width=(I/Q.length*100)+"%";rQ()}}
+function show(){s("result");var c={A:0,B:0,C:0,D:0,E:0};A.forEach(function(a){if(c[a]!==undefined)c[a]++});var key;if(A[4]==="C")key="X";else if(A[5]==="E")key="E";else{var mk="A",mv=0,tn=0;["A","B","C","D","E"].forEach(function(k){if(c[k]>mv){mv=c[k];mk=k}if(c[k]>0)tn++});key=tn>=4?"X":mk}var r=R[key];document.getElementById("ri").textContent=r.icon;document.getElementById("rt").textContent=r.t;document.getElementById("rq").textContent=r.q;document.getElementById("rd").textContent=r.d;document.getElementById("rr").innerHTML=r.r;document.getElementById("rp").innerHTML='<div class="p-label">推荐产品</div><div class="p-name">'+r.p.n+'</div><div class="p-desc">'+r.p.d+'</div><div class="p-store">🛒 '+r.p.l+"</div>"}
+</script>
+</body>
+</html>
